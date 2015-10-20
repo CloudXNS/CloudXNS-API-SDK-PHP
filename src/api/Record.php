@@ -175,19 +175,4 @@ final class Record extends Api {
         //获取返回值
         $this->response();
     }
-
-    //批量删除解析记录
-    public function recordDelAll($urlExtend = '') {
-        //设置URL扩展
-        $this->setUrlExtend($urlExtend);
-
-        //初始化参数
-        $this->initParam();
-        //设置请求的方法
-        $this->request->setMethod('DELETE');
-
-        //获取返回值
-        $this->response();
-    }
-
 }
