@@ -18,7 +18,11 @@ final class RecordType extends Api {
         $this->setApiType("RecordType");
     }
     
-    //记录类型列表
+    /**
+     * 记录类型列表
+     * 
+     * @return string
+     */
     public function typeList() {
         //初始化参数
         $this->initParam();

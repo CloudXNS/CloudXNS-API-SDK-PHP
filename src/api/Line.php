@@ -18,10 +18,30 @@ final class Line extends Api {
         $this->setApiType("Line");
     }
     
-    //线路&区域&ISP列表
-    public function lineList($urlExtend = '') {
+    /**
+     * 线路的列表
+     * 
+     * @return string
+     */
+    public function lineList() {       
+        //初始化参数
+        $this->initParam();
+        
+        //设置请求的方法
+        $this->request->setMethod('GET');
+
+        //获取返回值
+        $this->response();
+    }
+    
+    /**
+     * 区域的列表
+     * 
+     * @return string
+     */
+    public function regionList() {
         //设置URL扩展
-        $this->setUrlExtend($urlExtend);
+        $this->setUrlExtend('/region');
         
         //初始化参数
         $this->initParam();
@@ -32,5 +52,23 @@ final class Line extends Api {
         //获取返回值
         $this->response();
     }
+    
+    /**
+     * ISP的列表
+     * 
+     * @return string
+     */
+    public function ispList() {
+        //设置URL扩展
+        $this->setUrlExtend('/isp');
+        
+        //初始化参数
+        $this->initParam();
+        
+        //设置请求的方法
+        $this->request->setMethod('GET');
 
+        //获取返回值
+        $this->response();
+    }
 }

@@ -18,7 +18,11 @@ final class Ns extends Api {
         $this->setApiType("Ns");
     }
     
-    //NS服务器列表
+    /**
+     * NS服务器列表
+     * 
+     * @return string
+     */
     public function nsList() {
         //初始化参数
         $this->initParam();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 域名的接口逻辑处理的Demo
  * 
@@ -7,24 +8,38 @@
  * @copyright Copyright (c) 2015 Cloudxns.
  */
 require_once 'Config.inc.php';
+
 use Cloudxns\Api;
 
 $api = new Api();
-$api->setApiKey('XXX');
-$api->setSecretKey('XXX');
+$api->setApiKey('479b49046b9a9616bc09ca02f9b95fc5');
+$api->setSecretKey('03c57ce31d374d41');
 $api->setProtocol(true);
 
-//获取域名列表
+/**
+ * 域名列表 
+ * 
+ * @return string
+ */
 $api->domain->domainList();
 
 
-//添加域名
-$arr = array("domain"=>"cloudxns.net");
-$api->domain->domainAdd($arr);
+/**
+ * 域名的添加
+ * 
+ * @param string $domain 域名的名称
+ * @return string
+ */
+$api->domain->domainAdd('xcbeyond.com');
 
 
-//删除域名
-$api->domain->domainDelete('/5568');
+/**
+ * 域名的删除
+ * 
+ * @param integer $id 域名ID
+ * @return string
+ */
+$api->domain->domainDelete(32221);
 
 
 

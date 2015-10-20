@@ -18,7 +18,11 @@ final class Domain extends Api {
         $this->setApiType("Domain");
     }
 
-    //域名列表
+    /**
+     * 域名列表 
+     * 
+     * @return string
+     */
     public function domainList() {
         //初始化参数
         $this->initParam();
@@ -30,11 +34,17 @@ final class Domain extends Api {
         $this->response();
     }
 
-    //域名的添加
-    public function domainAdd($arr = array()) {    
+    /**
+     * 域名的添加
+     * 
+     * @param string $domain 域名的名称
+     * @return string
+     */
+    public function domainAdd($domain = '') {
+        $arr = array("domain" => $domain);
         //设置参数体
         $this->setData(json_encode($arr));
-        
+
         //初始化参数
         $this->initParam();
 
@@ -48,11 +58,16 @@ final class Domain extends Api {
         $this->response();
     }
 
-    //域名的删除
-    public function domainDelete($urlExtend = '') {
+    /**
+     * 域名的删除
+     * 
+     * @param integer $id 域名ID
+     * @return string
+     */
+    public function domainDelete($id = 0) {
         //设置URL扩展
-        $this->setUrlExtend($urlExtend);
-        
+        $this->setUrlExtend("/$id");
+
         //初始化参数
         $this->initParam();
 

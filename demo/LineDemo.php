@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 线路&区域&ISP列表的接口逻辑处理的Demo
  * 
@@ -7,21 +8,36 @@
  * @copyright Copyright (c) 2015 Cloudxns.
  */
 require_once 'Config.inc.php';
+
 use Cloudxns\Api;
 
 $api = new Api();
-$api->setApiKey('xxxx');
-$api->setSecretKey('xxxx');
+$api->setApiKey('xxxxx');
+$api->setSecretKey('xxxxx');
 $api->setProtocol(true);
 
-//线路列表
 $api->setProtocol(false);
+/**
+ * 线路的列表
+ * 
+ * @return string
+ */
 $api->line->lineList();
 
-//区域列表
-$api->setProtocol(false);
-$api->line->lineList('/region');
 
-//ISP列表
+$api->setProtocol(false);
+/**
+ * 区域列表
+ * 
+ * @return string
+ */
+$api->line->regionList();
+
+
 $api->setProtocol(true);
-$api->line->lineList('/isp');
+/**
+ * ISP的列表
+ * 
+ * @return string
+ */
+$api->line->ispList();
