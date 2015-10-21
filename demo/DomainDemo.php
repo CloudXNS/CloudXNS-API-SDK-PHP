@@ -12,8 +12,8 @@ require_once 'Config.inc.php';
 use Cloudxns\Api;
 
 $api = new Api();
-$api->setApiKey('479b49046b9a9616bc09ca02f9b95fc5');
-$api->setSecretKey('03c57ce31d374d41');
+$api->setApiKey('xxxx');
+$api->setSecretKey('xxxxx');
 $api->setProtocol(true);
 
 /**

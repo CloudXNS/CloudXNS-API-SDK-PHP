@@ -40,7 +40,7 @@ $api->record->recordList(2125, 0, 0, 30);
  * @param integer $lineId 线路 id,(通过 API 获得记录线路 id)
  * @return string
  */
-$api->record->recordAdd(2125, 'mp3', '192.168.100.220', 'AX', 55, 600, 1);
+$api->record->recordAdd(28658, 'w0', '3.3.3.3', 'A', 55, 600, 1);
 
 /**
  * 新增备记录
