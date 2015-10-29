@@ -131,7 +131,7 @@ class Api {
             throw new CloudXNSException("response.error: {$response->error} {PHP_EOL}");
 
         } else {
-            echo $response->body . '<br/>';
+            return $response->body;
         }
     }
 

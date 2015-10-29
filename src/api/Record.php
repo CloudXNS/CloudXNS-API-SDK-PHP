@@ -38,7 +38,7 @@ final class Record extends Api {
         $this->request->setMethod('GET');
 
         //获取返回值
-        $this->response();
+        return $this->response();
     }
 
     /**
@@ -76,7 +76,7 @@ final class Record extends Api {
         $this->request->setBody($this->data);
 
         //获取返回值
-        $this->response();
+        return $this->response();
     }
 
     /**
@@ -110,7 +110,7 @@ final class Record extends Api {
         $this->request->setBody($this->data);
 
         //获取返回值
-        $this->response();
+        return $this->response();
     }
 
     /**
@@ -123,10 +123,11 @@ final class Record extends Api {
      * @param integer $mx 优先级,当记录类型是 MX/AX/CNAMEX 时有效并且必选
      * @param integer $ttl TTL,范围 60-3600,不同等级域名最小值不同
      * @param integer $lineId 线路 id(通过 API 获取)
+     * @param string $bakIp  存在备 ip 时可选填
      * @param integer $recordId 解析记录 id
      * @return string
      */
-    public function recordUpdate($domainId = 0, $host = '', $value = '', $type = '', $mx = 0, $ttl = 0, $lineId = 0, $recordId = 0) {
+    public function recordUpdate($domainId = 0, $host = '', $value = '', $type = '', $mx = 0, $ttl = 0, $lineId = 0, $bakIp = '', $recordId = 0) {
         $arr = array(
             'domain_id' => $domainId,
             'host' => $host,
@@ -134,7 +135,8 @@ final class Record extends Api {
             'type' => $type,
             'mx' => $mx,
             'ttl' => $ttl,
-            'line_id' => $lineId
+            'line_id' => $lineId,
+            'bak_ip' => $bakIp
         );
         
         //设置参数体
@@ -153,7 +155,7 @@ final class Record extends Api {
         $this->request->setBody($this->data);
 
         //获取返回值
-        $this->response();
+        return $this->response();
     }
 
     /**
@@ -173,6 +175,6 @@ final class Record extends Api {
         $this->request->setMethod('DELETE');
 
         //获取返回值
-        $this->response();
+        return $this->response();
     }
 }

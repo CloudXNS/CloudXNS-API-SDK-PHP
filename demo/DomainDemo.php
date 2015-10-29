@@ -21,7 +21,7 @@ $api->setProtocol(true);
  * 
  * @return string
  */
-$api->domain->domainList();
+echo $api->domain->domainList();
 
 
 /**
@@ -30,7 +30,7 @@ $api->domain->domainList();
  * @param string $domain 域名的名称
  * @return string
  */
-$api->domain->domainAdd('xcbeyond.com');
+echo $api->domain->domainAdd('aaa.com');
 
 
 /**
@@ -39,7 +39,7 @@ $api->domain->domainAdd('xcbeyond.com');
  * @param integer $id 域名ID
  * @return string
  */
-$api->domain->domainDelete(32221);
+echo $api->domain->domainDelete(32221);
 
 
 

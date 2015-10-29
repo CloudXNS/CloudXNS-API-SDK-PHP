@@ -21,4 +21,4 @@ $api->setProtocol(true);
  * 
  * @return string
  */
-$api->recordType->typeList();
+echo $api->recordType->typeList();

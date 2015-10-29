@@ -26,4 +26,4 @@ $api->setProtocol(true);
  * @param string $endDate 结束时间
  * @return string
  */
-$api->statistics->statisticsList(2125, 'all', 'all', '2015-10-1', '2015-10-19');
+echo $api->statistics->statisticsList(2125, 'all', 'all', '2015-10-1', '2015-10-19');

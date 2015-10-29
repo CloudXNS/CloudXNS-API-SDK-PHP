@@ -31,7 +31,7 @@ final class Ns extends Api {
         $this->request->setMethod('GET');
 
         //获取返回值
-        $this->response();
+        return $this->response();
     }
 
 }

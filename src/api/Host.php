@@ -37,7 +37,7 @@ final class Host extends Api {
         $this->request->setMethod('GET');
 
         //获取返回值
-        $this->response();
+        return $this->response();
     }
 
     /**
@@ -57,7 +57,7 @@ final class Host extends Api {
         $this->request->setMethod('DELETE');
 
         //获取返回值
-        $this->response();
+        return $this->response();
     }
 
 }

@@ -21,4 +21,4 @@ $api->setProtocol(true);
  * 
  * @return string
  */
-$api->ns->nsList();
+echo $api->ns->nsList();

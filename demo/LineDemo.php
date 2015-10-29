@@ -16,28 +16,25 @@ $api->setApiKey('xxxxx');
 $api->setSecretKey('xxxxx');
 $api->setProtocol(true);
 
-$api->setProtocol(false);
 /**
  * 线路的列表
  * 
  * @return string
  */
-$api->line->lineList();
+echo $api->line->lineList();
 
 
-$api->setProtocol(false);
 /**
  * 区域列表
  * 
  * @return string
  */
-$api->line->regionList();
+echo $api->line->regionList();
 
 
-$api->setProtocol(true);
 /**
  * ISP的列表
  * 
  * @return string
  */
-$api->line->ispList();
+echo $api->line->ispList();

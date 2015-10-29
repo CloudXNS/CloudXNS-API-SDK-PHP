@@ -24,7 +24,7 @@ $api->setProtocol(true);
  * @param integer $rowNum 要获取的记录的数量,最大可取 2000条
  * @return string
  */
-$api->host->hostList(2125, 0, 30);
+echo $api->host->hostList(2125, 0, 30);
 
 /**
  * 主机记录的删除
@@ -32,4 +32,4 @@ $api->host->hostList(2125, 0, 30);
  * @param integer $hostId 主机记录 id
  * @return string
  */
-$api->host->hostDelete(48088);
+echo $api->host->hostDelete(48088);
