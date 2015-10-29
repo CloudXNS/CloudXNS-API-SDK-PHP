@@ -63,10 +63,11 @@ echo $api->record->spareAdd(2125, 295169, 629119, '192.168.100.222');
  * @param integer $mx 优先级,当记录类型是 MX/AX/CNAMEX 时有效并且必选
  * @param integer $ttl TTL,范围 60-3600,不同等级域名最小值不同
  * @param integer $lineId 线路 id(通过 API 获取)
+ * @param string $bakIp  存在备 ip 时可选填
  * @param integer $recordId 解析记录 id
  * @return string
  */
-echo $api->record->recordUpdate(2125, 'www', '192.168.100.210', 'AX', 55, 600, 1, 42693);
+echo $api->record->recordUpdate(2125, 'www', '192.168.100.210', 'AX', 55, 600, 1, '', 42693);
 
 
 /**
