@@ -1,4 +1,4 @@
-##A parallel CloudXNS sdk written in pure PHP##
+##CloudXNS-API-SDK-PHP Package ##
 
 
 ##Requirements##
