@@ -3,7 +3,7 @@
 /**
  * 主机记录的接口逻辑处理
  * 
- * @author CLoudXNS <support@cloudxns.net>
+ * @author CloudXNS <support@cloudxns.net>
  * @link https://www.cloudxns.net/
  * @copyright Copyright (c) 2015 Cloudxns.
  */
@@ -28,14 +28,11 @@ final class Host extends Api {
      */
     public function hostList($domainId = 0, $offset = 0, $rowNum = 30) {
         //设置URL扩展
-        $this->setUrlExtend("/$domainId?offset=$offset&row_num=$rowNum");
-
+        $this->setUrlExtend("$domainId?offset=$offset&row_num=$rowNum");
+        //设置请求的方法
+        $this->setMethod('GET');
         //初始化参数
         $this->initParam();
-
-        //设置请求的方法
-        $this->request->setMethod('GET');
-
         //获取返回值
         return $this->response();
     }
@@ -48,14 +45,11 @@ final class Host extends Api {
      */
     public function hostDelete($hostId = 0) {
         //设置URL扩展
-        $this->setUrlExtend("/$hostId");
-
+        $this->setUrlExtend("$hostId");
+        //设置请求的方法
+        $this->setMethod('DELETE');
         //初始化参数
         $this->initParam();
-
-        //设置请求的方法
-        $this->request->setMethod('DELETE');
-
         //获取返回值
         return $this->response();
     }

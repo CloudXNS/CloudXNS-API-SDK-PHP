@@ -143,6 +143,10 @@
                         } else {
                             $("#domain_list").html(data.message);
                         }
+                    },
+                    error:function()
+                    {
+                      alert('ccc');
                     }
                 });
             }
