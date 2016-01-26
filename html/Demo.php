@@ -3,16 +3,15 @@
 /**
  * 导入相关的文件
  *
- * @author CLoudXNS <support@cloudxns.net>
+ * @author CloudXNS <support@cloudxns.net>
  * @link https://www.cloudxns.net/
  * @copyright Copyright (c) 2015 Cloudxns.
  */
-require_once '../src/Api.php';
+require_once '../vendor/autoload.php';
+use CloudXNS\Api;
 
-use Cloudxns\Api;
-
-$apiKey = 'XXXXXX';
-$secretKey = 'XXXXXX';
+$api->setApiKey('xxxxxxxxxx');
+$api->setSecretKey('xxxxxxxxxx');
 $protocol = true;
 $action = isset($_POST['action']) ? $_POST['action'] : 'domainList';
 

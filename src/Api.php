@@ -3,25 +3,18 @@
 /**
  * 配置文件
  *
- * @author CLoudXNS <support@cloudxns.net>
+ * @author CloudXNS <support@cloudxns.net>
  * @link https://www.cloudxns.net/
- * @copyright Copyright (c) 2015 Cloudxns.
+ * @copyright Copyright (c) 2016 Cloudxns.
  */
 
 namespace CloudXNS;
 
 /**
  * 请用Composer安装依赖包，并在根目录下执行:
- * php composer.phar require "hightman/httpclient:*"命令。
- * 参考地址：https://github.com/hightman/httpclient
+ * php composer.phar require "guzzlehttp/guzzle:~5.0"命令。
+ * 参考地址：https://github.com/guzzle/guzzle.git
  */
-require_once '../vendor/autoload.php';
-
-use hightman\http\Client;
-use hightman\http\Request;
-use hightman\http\Response;
-use CloudXNS\CloudXNSException;
-
 class Api {
     protected $apiKey = '';
     protected $secretKey = '';
@@ -36,7 +29,9 @@ class Api {
     protected $request;
     protected $apiType;
     protected $flag;
-    
+    protected $method;
+    protected $header;
+    protected $response;
     public function __get($property){
         $this->module = ucfirst($property);
 
@@ -45,7 +40,6 @@ class Api {
 
         //实例化类
         $domain = new $className();
-        
         $domain->setApiKey($this->apiKey);
         $domain->setSecretKey($this->secretKey);
         $domain->setProtocol($this->flag);
@@ -55,29 +49,30 @@ class Api {
     }
     /**
      * 构造函数
-     * 
-     * @param string $type //接口的类型
-     * @param string $data //参数体
-     * @param string $url_extend url的扩展
-     * @param string $http 协议类型，默认为https
      */
     public function initParam() {
-        $this->url = $this->urlParam($this->apiType) . $this->urlExtend;
-        $this->date = date('r', time());
+        $baseUrl = $this->urlParam($this->apiType);
+        if(isset($this->urlExtend) && $this->urlExtend)
+        {
+            $baseUrl= $baseUrl.'/';
+            $this->url = $baseUrl . $this->urlExtend;
+        }else{
+            $this->url = $baseUrl;
+        }
         //计算hash值
-        $this->hash = $this->doHash($this->apiKey, $this->url, $this->data, $this->date, $this->secretKey);
-        $this->client = new Client();
-
-        $this->request = new Request($this->url);
-
-        //设置参数的头部
         $this->setHeader();
+        $this->request = $this->sendRequest();
     }
-
     /**
-     * 根据不同的类型,返回不同的URL
-     * 
-     * @param string $type
+     * 设置请求方式
+     * $param string $method 请求方式GET,DELETE,POST,PUT等
+    */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+    /**
+     * 根据不同的请求类型,返回不同的URL
      * @return string
      */
     public function urlParam() {
@@ -88,7 +83,8 @@ class Api {
             'Host' => $this->protocol . '://' . $this->host . '/host', //主机记录
             'Record' => $this->protocol . '://' . $this->host . '/record', //解析记录
             'Statistics' => $this->protocol . '://' . $this->host . '/domain_stat', //解析量统计
-            'Ns' => $this->protocol . '://' . $this->host . '/ns_server'          //NS服务器
+            'Ns' => $this->protocol . '://' . $this->host . '/ns_server'  ,        //NS服务器
+            'Ddns' => $this->protocol . '://' . $this->host . '/ddns'          //DDNS
         );
         $type = $this->apiType;
 
@@ -97,16 +93,10 @@ class Api {
 
     /**
      * hash值的计算规则
-     * 
-     * @param string $apiKey
-     * @param string $url
-     * @param string $data
-     * @param string $date
-     * @param string $secretKey
      * @return string
      */
-    public function doHash($apiKey = '', $url = '', $data = '', $date = '', $secretKey = '') {
-        return md5($apiKey . $url . $data . $date . $secretKey);
+    public function doHash() {
+        return md5($this->apiKey . $this->url . $this->data . $this->date . $this->secretKey);
     }
 
     /**
@@ -114,27 +104,14 @@ class Api {
      */
     public function setHeader() {
         //设置请求的头部
-        $this->request->setHeader('API-KEY', $this->apiKey);
-        $this->request->setHeader('API-REQUEST-DATE', $this->date);
-        $this->request->setHeader('API-HMAC', $this->hash);
-        $this->request->setHeader('API-FORMAT', 'json');
+        $this->date = date('r',time());
+        $this->header = array(
+            'API-KEY' => $this->apiKey,
+            'API-REQUEST-DATE' =>$this->date,
+            'API-HMAC' => $this->doHash(),
+            'API-FORMAT' => 'json'
+        );
     }
-
-    /**
-     * 将返回的结果，输出呈现
-     */
-    public function response() {
-        $response = $this->client->exec($this->request);
-
-        if ($response->hasError()) {
-            require_once "api/CloudXNSException.php";
-            throw new CloudXNSException("response.error: {$response->error} {PHP_EOL}");
-
-        } else {
-            return $response->body;
-        }
-    }
-
     /**
      * 设置apiKey
      * 
@@ -142,15 +119,6 @@ class Api {
      */
     public function setApiKey($apiKey) {
         $this->apiKey = $apiKey;
-    }
-
-    /**
-     * 获取apiKey
-     * 
-     * @return string
-     */
-    public function getApiKey() {
-        return $this->apiKey;
     }
 
     /**
@@ -163,19 +131,9 @@ class Api {
     }
 
     /**
-     * 获取SecretKey
-     * 
-     * @return string
-     */
-    public function getSecretKey() {
-        return $this->secretKey;
-    }
-
-    /**
      * 设置protocol
-     * 
-     * @param string $protocol
-     */
+     * @param boolean $flag
+     **/
     public function setProtocol($flag = true) {
         $this->flag = $flag;
         if($flag){
@@ -184,16 +142,6 @@ class Api {
             $this->protocol = 'http';
         }
     }
-
-    /**
-     * 获取protocol
-     * 
-     * @return string
-     */
-    public function getProtocol() {
-        return $this->protocol;
-    }
-
     /**
      * 设置data
      * 
@@ -204,15 +152,6 @@ class Api {
     }
 
     /**
-     * 获取data
-     * 
-     * @return string
-     */
-    public function getData() {
-        return $this->data;
-    }
-
-    /**
      * 设置apiType
      * 
      * @param string $apiType
@@ -220,16 +159,6 @@ class Api {
     public function setApiType($apiType) {
         $this->apiType = ucfirst($apiType);
     }
-
-    /**
-     * 获取apiType
-     * 
-     * @return string
-     */
-    public function getApiType() {
-        return $this->apiType;
-    }
-
     /**
      * 设置urlExtend
      * 
@@ -239,31 +168,30 @@ class Api {
         $this->urlExtend = $urlExtend;
     }
 
-    /**
-     * 获取urlExtend
-     * 
-     * @return string
-     */
-    public function getUrlExtend() {
-        return $this->urlExtend;
+    public function sendRequest()
+    {
+        $baseUrl = $this->urlParam($this->apiType);
+        if(isset($this->urlExtend) && $this->urlExtend)
+        {
+            $baseUrl= $baseUrl.'/';
+        }
+        $client = new \GuzzleHttp\Client(['base_url' =>$baseUrl ]);
+        $option = array(
+            'body'=>$this->data,
+            'headers'=>$this->header,
+            'verify'=>false,
+            'exceptions' => false
+        );
+        $method = strtolower($this->method);
+        $this->response = $client->$method(isset($this->urlExtend)?$this->urlExtend:null,$option);
     }
-
     /**
-     * 设置请求的类文件
-     * 
-     * @param string $module
+     * 将返回的结果，输出呈现
      */
-    public function setModule($module) {
-        
-    }
-
-    /**
-     * 返回请求的类文件
-     * 
-     * @return string
-     */
-    public function getModule() {
-        return $this->module;
+    public function response() {
+        $body = $this->response->getbody();
+        $contents = $body->getContents();
+        return $contents;
     }
 
 }

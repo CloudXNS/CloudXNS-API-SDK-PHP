@@ -3,7 +3,7 @@
 /**
  * 域名的接口逻辑处理
  * 
- * @author CLoudXNS <support@cloudxns.net>
+ * @author CloudXNS <support@cloudxns.net>
  * @link https://www.cloudxns.net/
  * @copyright Copyright (c) 2015 Cloudxns.
  */
@@ -25,11 +25,9 @@ final class Domain extends Api {
      */
     public function domainList() {
         //初始化参数
-        $this->initParam();
-
         //设置请求的方法
-        $this->request->setMethod('GET');
-
+        $this->setMethod('GET');
+        $this->initParam();
         //获取返回值
         return $this->response();
     }
@@ -44,16 +42,10 @@ final class Domain extends Api {
         $arr = array("domain" => $domain);
         //设置参数体
         $this->setData(json_encode($arr));
-
+        //设置请求的方法
+        $this->setMethod('POST');
         //初始化参数
         $this->initParam();
-
-        //设置请求的方法
-        $this->request->setMethod('POST');
-
-        //设置参数体
-        $this->request->setBody($this->data);
-
         //获取返回值
         return $this->response();
     }
@@ -66,14 +58,11 @@ final class Domain extends Api {
      */
     public function domainDelete($id = 0) {
         //设置URL扩展
-        $this->setUrlExtend("/$id");
-
+        $this->setUrlExtend("$id");
+        //设置请求的方法
+        $this->setMethod('DELETE');
         //初始化参数
         $this->initParam();
-
-        //设置请求的方法
-        $this->request->setMethod('DELETE');
-
         //获取返回值
         return $this->response();
     }

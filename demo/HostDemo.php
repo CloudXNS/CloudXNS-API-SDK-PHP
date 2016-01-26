@@ -3,17 +3,14 @@
 /**
  * 主机记录的接口逻辑处理的Demo
  * 
- * @author CLoudXNS <support@cloudxns.net>
+ * @author CloudXNS <support@cloudxns.net>
  * @link https://www.cloudxns.net/
  * @copyright Copyright (c) 2015 Cloudxns.
  */
-require_once 'Config.inc.php';
-
-use Cloudxns\Api;
-
-$api = new Api();
-$api->setApiKey('xxxxx');
-$api->setSecretKey('xxxxx');
+require_once '../vendor/autoload.php';
+$api = new \CloudXNS\Api();
+$api->setApiKey('xxxxxxxxxx');
+$api->setSecretKey('xxxxxxxxxx');
 $api->setProtocol(true);
 
 /**
@@ -24,7 +21,7 @@ $api->setProtocol(true);
  * @param integer $rowNum 要获取的记录的数量,最大可取 2000条
  * @return string
  */
-echo $api->host->hostList(2125, 0, 30);
+echo $api->host->hostList(57219, 0, 30);
 
 /**
  * 主机记录的删除
@@ -32,4 +29,4 @@ echo $api->host->hostList(2125, 0, 30);
  * @param integer $hostId 主机记录 id
  * @return string
  */
-echo $api->host->hostDelete(48088);
+echo $api->host->hostDelete(601879);

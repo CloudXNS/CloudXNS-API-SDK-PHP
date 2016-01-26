@@ -14,7 +14,7 @@
             "CloudXNS\\": "src/"
         }
     },
-    "require-dev": {
-        "hightman/httpclient": "*"
-    }
+	"require-dev": {
+      "guzzlehttp/guzzle": "~5.0"
+   }
 }

@@ -3,7 +3,7 @@
 /**
  * 解析记录的接口逻辑处理
  * 
- * @author CLoudXNS <support@cloudxns.net>
+ * @author CloudXNS <support@cloudxns.net>
  * @link https://www.cloudxns.net/
  * @copyright Copyright (c) 2015 Cloudxns.
  */
@@ -29,14 +29,11 @@ final class Record extends Api {
      */
     public function recordList($domainId = 0, $hostId = 0, $offset = 0, $rowNum = 30) {
         //设置URL扩展
-        $this->setUrlExtend("/$domainId?host_id=$hostId&offset=$offset&row_num=$rowNum");
-
+        $this->setUrlExtend("$domainId?host_id=$hostId&offset=$offset&row_num=$rowNum");
+        //设置请求的方法
+        $this->setMethod('GET');
         //初始化参数
         $this->initParam();
-
-        //设置请求的方法
-        $this->request->setMethod('GET');
-
         //获取返回值
         return $this->response();
     }
@@ -65,16 +62,10 @@ final class Record extends Api {
         );
         //设置参数体
         $this->setData(json_encode($arr));
-
+        //设置请求的方法
+        $this->setMethod('POST');
         //初始化参数
         $this->initParam();
-
-        //设置请求的方法
-        $this->request->setMethod('POST');
-
-        //设置参数体 
-        $this->request->setBody($this->data);
-
         //获取返回值
         return $this->response();
     }
@@ -97,18 +88,12 @@ final class Record extends Api {
         );
         //设置参数体
         $this->setData(json_encode($arr));
-        
-        $this->setUrlExtend('/spare');
-
+        //设置URL扩展
+        $this->setUrlExtend('spare');
+        //设置请求的方法
+        $this->setMethod('POST');
         //初始化参数
         $this->initParam();
-
-        //设置请求的方法
-        $this->request->setMethod('POST');
-
-        //设置参数体 
-        $this->request->setBody($this->data);
-
         //获取返回值
         return $this->response();
     }
@@ -138,22 +123,14 @@ final class Record extends Api {
             'line_id' => $lineId,
             'bak_ip' => $bakIp
         );
-        
         //设置参数体
         $this->setData(json_encode($arr));
-
         //设置URL扩展
-        $this->setUrlExtend("/$recordId");
-
+        $this->setUrlExtend("$recordId");
+        //设置请求的方法
+        $this->setMethod('PUT');
         //初始化参数
         $this->initParam();
-
-        //设置请求的方法
-        $this->request->setMethod('PUT');
-
-        //设置参数体 
-        $this->request->setBody($this->data);
-
         //获取返回值
         return $this->response();
     }
@@ -166,14 +143,59 @@ final class Record extends Api {
      */
     public function recordDelete($recordId = 0, $domainId = 0) {
         //设置URL扩展
-        $this->setUrlExtend("/$recordId/$domainId");
-
+        $this->setUrlExtend("$recordId/$domainId");
+        //设置请求的方法
+        $this->setMethod('DELETE');
         //初始化参数
         $this->initParam();
-
+        //获取返回值
+        return $this->response();
+    }
+    /**
+     * 暂停、启用解析记录
+     * @param integer $recordId 解析记录ID
+     * @param integer $domainId 域名id
+     * @param integer $status 操作状态： 0 暂停，1 启用
+    */
+    public function recordPause($recordId,$domainId,$status)
+    {
+        $arr = array(
+            'id' => $recordId,
+            'domain_id' => $domainId,
+            'status' => $status
+        );
+        //设置参数体
+        $this->setData(json_encode($arr));
+        //设置URL扩展
+        $this->setUrlExtend("pause");
         //设置请求的方法
-        $this->request->setMethod('DELETE');
-
+        $this->setMethod('POST');
+        //初始化参数
+        $this->initParam();
+        //获取返回值
+        return $this->response();
+    }
+    /**
+     * 暂停、启用X优化
+     * @param integer $recordId 解析记录ID
+     * @param integer $domainId 域名id
+     * @param integer $status 操作状态： 0 暂停，1 启用
+     */
+    public function recordAi($recordId,$domainId,$status)
+    {
+        $arr = array(
+            'id' => $recordId,
+            'domain_id' => $domainId,
+            'status' => $status
+        );
+        //设置参数体
+        $this->setData(json_encode($arr));
+        //设置URL扩展
+        $this->setUrlExtend("ai");
+        //设置请求的方法
+        $this->setMethod('POST');
+        //初始化参数
+        $this->initParam();
         //获取返回值
         return $this->response();
     }
