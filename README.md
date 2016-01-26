@@ -21,16 +21,14 @@ composer install
 you can then install using the following command:
 ```shell
 composer require "cloudxns/cloud-xns-api-sdk-php:*"
-cd vendor/cloudxns/cloud-xns-api-sdk-php/
-composer require "hightman/httpclient:*"
+composer require "guzzlehttp/guzzle: ~5.0"
 ```
 
 ##Demo##
 ==================================================
 ```php
-use Cloudxns\Api;
-
-$api = new Api();
+require_once '../vendor/autoload.php';
+$api = new \CloudXNS\Api();
 $api->setApiKey('xxxxx');
 $api->setSecretKey('xxxx');
 $api->setProtocol(true);
