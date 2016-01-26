@@ -175,7 +175,7 @@ class Api {
         {
             $baseUrl= $baseUrl.'/';
         }
-        $client = new \GuzzleHttp\client(['base_url' =>$baseUrl ]);
+        $client = new \GuzzleHttp\Client(['base_url' =>$baseUrl ]);
         $option = array(
             'body'=>$this->data,
             'headers'=>$this->header,

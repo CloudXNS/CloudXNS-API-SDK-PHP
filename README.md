@@ -3,7 +3,10 @@
 
 ##1 环境版本要求##
 
-PHP >= 5.4.0  依赖Guzzle版本5.3
+PHP >= 5.4.0
+
+
+依赖[guzzlehttp版本5.3](https://github.com/guzzle/guzzle/tree/5.3)
 
 ##2 安装步骤##
 ###2.1安装Composer###
@@ -31,7 +34,7 @@ composer require "guzzlehttp/guzzle: ~5.0"
 ```
 ####2.3.2 程序中使用SDK示例，更多详见demo文件夹####
 ```php
-require_once '../vendor/autoload.php';//仅供参考，具体以项目中路径为准
+require_once './vendor/autoload.php';//仅供参考，具体以项目中路径为准
 $api = new \CloudXNS\Api();
 $api->setApiKey('xxxxxxxxxx');//修改成自己API KEY
 $api->setSecretKey('xxxxxxxxxx');//修改成自己的SECERET KEY
