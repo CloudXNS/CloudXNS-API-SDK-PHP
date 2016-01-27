@@ -48,5 +48,5 @@ $api->domain->domainAdd($arr);
 
 
 //删除域名
-$api->domain->domainDelete('/5568');
+$api->domain->domainDelete('5568');
 ```
