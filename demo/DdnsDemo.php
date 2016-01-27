@@ -13,8 +13,8 @@ $api->setSecretKey('xxxxxxxxxx');
 $api->setProtocol(true);
 /**
  * DDNS快速修改解析记录
- * @param integer $recordId 解析记录ID
- * @param integer $domainId 域名id
- * @param integer $status 操作状态： 0 暂停，1 启用
+ * @param string $domain 包含主机记录的域名
+ * @param string $ip IP值 多个以|分割如1.1.1.1|2.2.2.2 可为空
+ * @param integer $line_id 线路id 默认为1，可为空
  */
 echo $api->ddns->ddns('aaa.test.net.cn.','',1);
